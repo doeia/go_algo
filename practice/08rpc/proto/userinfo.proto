@@ -1,0 +1,33 @@
+syntax = "proto3";
+option go_package = "./proto;userinfo"; // path and name
+
+// message userinfo{
+//     string username =1;
+//     int32 age =2;
+//     repeated string hobby=3;
+// }
+/*
+    how compile
+    protoc --go_out=./ *.proto
+*/
+
+
+service UserService{
+    rpc AddUser(UserAddReq) returns (AddUserRes);
+}
+message AddUserReq{
+    string id =1;
+    string name =2;
+}
+message AddUserRes{
+    string message = 1;
+    bool flag = 2;
+    string content = 3;
+}
+/*
+    how compile
+    protoc --go_out-plugins=grpc:./ *.proto
+*/
+
+// proto.Marshal() seriallize: to byte
+// proto.Unmarshal() deserialize: back to struc
