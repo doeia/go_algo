@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"log"
+	"net"
 	"net/rpc"
+	"net/rpc/jsonrpc"
 )
 
 type Args struct {
@@ -12,10 +14,12 @@ type Args struct {
 
 func main() {
 	// tcp
-	client, err := rpc.Dial("tcp", "localhost:9091")
+	conn, err := net.Dial("tcp", "localhost:9091")
 	if err != nil {
 		log.Fatal("dialing:", err)
 	}
+	// jsonrpc
+	client := rpc.NewClientWithCodec(jsonrpc.NewClientCodec(conn))
 	args := &Args{7, 8}
 	var reply int
 	err = client.Call("ServiceA.Add", args, &reply)
