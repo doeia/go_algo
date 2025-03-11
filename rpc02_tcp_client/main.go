@@ -11,8 +11,8 @@ type Args struct {
 }
 
 func main() {
-	// http
-	client, err := rpc.DialHTTP("tcp", "localhost:9091")
+	// tcp
+	client, err := rpc.Dial("tcp", "localhost:9091")
 	if err != nil {
 		log.Fatal("dialing:", err)
 	}
