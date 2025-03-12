@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+// the place where to import generated for project
+option go_package = "rpc03_demo_server/pb";
+
+package pb;
+
+// service definition
+service DemoService {
+    rpc SayHello (HelloRequest) returns (HelloResponse) {}
+    // 服务端返回流数据
+    rpc LotsOfReplies (HelloRequest) returns (stream HelloResponse) {}
+    // 客户端返回流数据
+    rpc LotsOfGreetings (stream HelloRequest) returns (HelloResponse) {}
+    // 双向流数据
+    rpc BidiHello (stream HelloRequest) returns (stream HelloResponse) {}
+}
+
+// message definition
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloResponse {
+    string message = 1;
+}
